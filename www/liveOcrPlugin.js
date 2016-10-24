@@ -1,10 +1,10 @@
-var TesseractPlugin = {
+var LiveOcrPlugin = {
     recognizeText: function (successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "TesseractPlugin", "recognizeText", []);
+        cordova.exec(successCallback, errorCallback, "LiveOcrPlugin", "recognizeText", []);
     },
 
     loadLanguage: function (language, successCallback, errorCallback) {
-        cordova.exec(successCallback, errorCallback, "TesseractPlugin", "loadLanguage", [language]);
+        cordova.exec(successCallback, errorCallback, "LiveOcrPlugin", "loadLanguage", [language]);
     }
 };
-module.exports = TesseractPlugin;
+module.exports = LiveOcrPlugin;

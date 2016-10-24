@@ -1,4 +1,4 @@
-# Cordova plugin for live OCR recognition using native [Tesseract](https://github.com/tesseract-ocr/tesseract) libary - For Android and iOS
+# Cordova plugin for live OCR recognition using native [Tesseract](https://github.com/tesseract-ocr/tesseract) library - For Android and iOS
 
 ## Integration in Ionic 2 project
 
@@ -20,6 +20,9 @@ import { Cordova, Plugin } from 'ionic-native';
 export class LiveOcrPlugin {
   @Cordova()
   static recognizeText(successCallback, errorCallback): Promise<any> { return; }
+
+  @Cordova()
+  static loadLanguage(language, successCallback, errorCallback): any { }
 }
 ```
 
@@ -27,6 +30,17 @@ export class LiveOcrPlugin {
 ```typescript
 import {LiveOcrPlugin} from 'path/to/native/wrapper/LiveOcrPlugin';
 this.platform.ready().then(() => {
+    //load language file for android (it is included for ios)
+        LiveOcrPlugin.loadLanguage(
+    'eng', 
+    (success) => {
+        //success callback
+    },
+    (error) => {
+        //error callback
+    });
+
+    //start recognition process
     LiveOcrPlugin.recognizeText(
     (success) => {
         //success callback
@@ -49,8 +63,11 @@ this.platform.ready().then(() => {
 * `ionic plugin add cordova-plugin-live-ocr`
 
 ### How to modify and build:
-* Ppen workspace project in `platforms/ios`: 
-* Project `Pods` -> Targets `TesseractOCRiOS` -> Build Settings -> Select `All` -> Search for `bitcode` -> Enable Bitcode `No`
+#### Optional when errors with bitcode occur:  
+* Open workspace project in `platforms/ios`: 
+* Project `Pods` -> Targets `TesseractOCRiOS` -> Build Settings -> Select `All` -> Search for `bitcode` -> Enable Bitcode `No`  
+  
+#### Modify and build:
 * Following files, located in `cordova-plugin-live-ocr/src/ios` can be modified (header and implementation):
   * `AROverlayViewController`
   * `CaptureSessionManager`
@@ -103,7 +120,8 @@ this.platform.ready().then(() => {
 --------------------------------------------------------------------------- 
 
 ## TODO:
-* test on different os versions (Android and iOS) - works on android 4.4+ and iOS 9, 10 - iOS 8 device missing
-* find a solution to disable bitcode automatically in Pods project (iOS) - possible solution: http://stackoverflow.com/questions/32640149/disable-bitcode-for-project-and-cocoapods-dependencies-with-xcode7
-* use ionic build on macOS/OSX
-* rename the plugin and all references
+* test on different os versions (Android and iOS) - works on android 4.4+ and iOS 9, 10 - iOS 8.4 tested in emulator
+
+### Resolved:
+* find a solution to disable bitcode automatically in Pods project (iOS) - possible solution: http://stackoverflow.com/questions/32640149/disable-bitcode-for-project-and-cocoapods-dependencies-with-xcode7, resolved by upgrading to xcode 8 non beta
+* use ionic build on macOS/OSX - fixed onmacos and xcode 8 by adding this line to cordova/lib build.js '-destination', 'platform=iOS Simulator,name=iPhone 6,OS=9.3', resolved by upgrading to xcode 8 non beta
