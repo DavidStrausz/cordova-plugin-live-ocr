@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+           id="cordova-plugin-live-ocr"
+      version="1.0.0">
+    <name>Live OCR Plugin</name>
+    
+    <engines>
+        <engine name="cordova-android" version=">=3.6.0" />
+    </engines>
+
+    <js-module src="www/liveOcrPlugin.js" name="LiveOcrPlugin">
+        <clobbers target="LiveOcrPlugin" />
+    </js-module>
+
+    <!-- cordova plugin to support cocoapods in ionic project -->
+    <dependency id="cordova-plugin-cocoapod-support" version="1.2.10" />
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="LiveOcrPlugin">
+                <param name="android-package" value="at.ventocom.liveocr.LiveOcrPlugin"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <!-- add the ocr activity to our manifest -->
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity android:name="at.ventocom.liveocr.OcrActivity"
+                android:screenOrientation="landscape"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        </config-file>
+
+        <!-- ocr scanning needs several permissions, add them to our manifest -->
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+            <uses-permission android:name="android.permission.CAMERA" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-feature android:name="android.hardware.camera.autofocus" />
+            <uses-feature android:name="android.hardware.camera.flash" android:required="false" />
+            <uses-feature android:name="android.hardware.camera"/>
+            <uses-feature android:name="android.hardware.screen.landscape" />
+        </config-file>
+
+        <!-- extend the standard cordova gradle build with our custom gradle file, which compiles the libraries -->
+        <framework src="src/android/libs.gradle" custom="true" type="gradleReference" />
+        <!-- OCR library for continous imageprocessing with a custom camera view -->
+        <resource-file src="lib/OCR.aar" target="libs/OCR.aar" />
+        <!-- tess-two library which does the actual ocr recognition -->
+        <resource-file src="lib/tess-two.aar" target="libs/tess-two.aar" />
+
+        <!-- native implementation of the plugin -->
+        <source-file src="src/android/LiveOcrPlugin.java" target-dir="src/at/ventocom/liveocr" />
+        <source-file src="src/android/OcrActivity.java" target-dir="src/at/ventocom/liveocr" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+		    <feature name="LiveOcrPlugin">
+			    <param name="ios-package" value="LiveOcrPlugin"/>
+                <param name="onload" value="true" />
+		    </feature>
+        </config-file>
+
+        <!-- preferences to use tesseract cocoapod -->
+        <config-file target="config.xml" parent="/*">
+            <preference name="pods_ios_min_version" value="8.0" />
+            <preference name="pods_use_frameworks" value="true" />
+        </config-file>
+
+        <!-- tell the cocoapod plugin that we need tesseract in the ios project -->
+        <pod id="TesseractOCRiOS" version="4.0.0" /> 
+
+        <!-- native implementation of the plugin -->
+        <header-file src="src/ios/LiveOcrPlugin.h" />
+        <source-file src="src/ios/LiveOcrPlugin.m" />
+        <header-file src="src/ios/AROverlayViewController.h" />
+        <source-file src="src/ios/AROverlayViewController.m" />
+        <header-file src="src/ios/CaptureSessionManager.h" />
+        <source-file src="src/ios/CaptureSessionManager.m" />
+
+        <!-- add permission to use camera -->
+        <preference name="CAMERA_USAGE_DESCRIPTION" default=" " />
+        <config-file target="*-Info.plist" parent="NSCameraUsageDescription">
+            <string>$CAMERA_USAGE_DESCRIPTION</string>
+        </config-file>
+
+        <!-- frameworks used by capture manager and custom camera overlay -->
+        <framework src="CoreImage.framework" />
+        <framework src="CoreGraphics.framework" />
+        <framework src="UIKit.framework" />
+        <framework src="Foundation.framework" />
+
+        <!-- set the tessdata directory as a resource so it can go with the app -->
+        <resource-file src="tessdata" />
+
+        <!-- has to go with the app to display the custom camera overlay -->
+        <resource-file src="src/ios/AROverlayViewController.xib" />
+    </platform>
+</plugin>
