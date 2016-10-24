@@ -122,6 +122,6 @@ this.platform.ready().then(() => {
 * Fix iOS crash: when tesseract is in the process of recognizing a text and user aborts scanning, the app may crash in some cases
 * Test on different os versions (Android and iOS) - works on android 4.4+ and iOS 9, 10 - iOS 8.4 tested in emulator
 
-### Possibly resolved by XCode8:
+### Possibly resolved:
 * Find a solution to disable bitcode automatically in Pods project (iOS) - possible solution: http://stackoverflow.com/questions/32640149/disable-bitcode-for-project-and-cocoapods-dependencies-with-xcode7, resolved by upgrading to xcode 8 non beta
-* Use ionic build on macOS/OSX - fixed onmacos and xcode 8 by adding this line to cordova/lib build.js '-destination', 'platform=iOS Simulator,name=iPhone 6,OS=9.3', resolved by upgrading to xcode 8 non beta
+* Use ionic build on macOS/OSX - fixed but waiting for pull request https://github.com/blakgeek/cordova-plugin-cocoapods-support/pull/13
