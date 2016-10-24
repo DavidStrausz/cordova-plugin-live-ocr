@@ -9,7 +9,7 @@
 
 ### Native Wrapper:
 * Create ionic native wrapper for plugin  
-```ts
+```typescript
 import { Cordova, Plugin } from 'ionic-native';
 
 @Plugin({
@@ -20,10 +20,11 @@ import { Cordova, Plugin } from 'ionic-native';
 export class LiveOcrPlugin {
   @Cordova()
   static recognizeText(successCallback, errorCallback): Promise<any> { return; }
-}```
+}
+```
 
 * Usage in ionic project  
-```ts
+```typescript
 import {LiveOcrPlugin} from 'path/to/native/wrapper/LiveOcrPlugin';
 this.platform.ready().then(() => {
     LiveOcrPlugin.recognizeText(
@@ -33,7 +34,8 @@ this.platform.ready().then(() => {
     (error) => {
         //error callback
     });
-});```
+});
+```
 
 ### Important Notes:
 * when developing on different environments: remove platforms, remove `cordova-plugin-live-ocr`, install the plugin again, add platforms - otherwise the dependencies of `cordova-plugin-live-ocr` will be missing
