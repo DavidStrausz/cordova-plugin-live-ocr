@@ -24,7 +24,7 @@
     begincapture = nil;
     imageView = nil;
     customLayer = nil;
-    tesseract = nil;
+    //tesseract = nil; -> this caused malloc_error_break exception in some cases
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
