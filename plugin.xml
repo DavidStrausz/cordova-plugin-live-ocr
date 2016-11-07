@@ -14,7 +14,7 @@
     </js-module>
 
     <!-- cordova plugin to support cocoapods in ionic project -->
-    <dependency id="cordova-plugin-cocoapod-support" version="1.2.10" />
+    <dependency id="cordova-plugin-cocoapod-support" url="https://github.com/blakgeek/cordova-plugin-cocoapods-support.git" />
 
     <!-- android -->
     <platform name="android">
