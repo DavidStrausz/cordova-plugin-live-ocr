@@ -28,6 +28,7 @@ export class LiveOcrPlugin {
 ```
 
 ### Usage in project  
+* `loadLanguage()` is only required in android case, iOS version as a tessdata file integrated  
 ```typescript
 import {LiveOcrPlugin} from 'path/to/native/wrapper/LiveOcrPlugin';
 this.platform.ready().then(() => {
@@ -87,7 +88,7 @@ this.platform.ready().then(() => {
 
 #### Changes which regard the camera view or the tesseract library can be done as follows:
 ##### Tess-two library:
-* If you don't want to use precompiled and built tess-two.aar (which is strongly recommended):
+* If you don't want to use precompiled and built tess-two.aar:
   * Download [Android NDK](https://developer.android.com/ndk/downloads/index.html) and add to `Path`
   * Download or clone [tess-two project](https://github.com/rmtheis/tess-two) (it contains Tesseract library for Android) 
   * Compile tess-two using android ndk  
