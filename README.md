@@ -14,8 +14,10 @@
 import { Cordova, Plugin } from 'ionic-native';
 
 @Plugin({
+  pluginName: 'LiveOcrPlugin',
   plugin: 'cordova-plugin-live-ocr',
   pluginRef: 'LiveOcrPlugin',
+  repo: 'https://github.com/DavidStrausz/cordova-plugin-live-ocr',
   platforms: ['Android', 'iOS']
 })
 export class LiveOcrPlugin {
