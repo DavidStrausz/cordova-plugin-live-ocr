@@ -14,7 +14,7 @@
     </js-module>
 
     <!-- cordova plugin to support cocoapods in ionic project -->
-    <dependency id="cordova-plugin-cocoapod-support" url="https://github.com/blakgeek/cordova-plugin-cocoapods-support.git" />
+    <dependency id="cordova-plugin-cocoapod-support"/>
 
     <!-- android -->
     <platform name="android">
@@ -66,13 +66,14 @@
         </config-file>
 
         <!-- preferences to use tesseract cocoapod -->
-        <config-file target="config.xml" parent="/*">
+        <pods-config ios-min-version="8.0" use-frameworks="true"></pods-config>
+        <!--<config-file target="config.xml" parent="/*">
             <preference name="pods_ios_min_version" value="8.0" />
             <preference name="pods_use_frameworks" value="true" />
-        </config-file>
+        </config-file>-->
 
         <!-- tell the cocoapod plugin that we need tesseract in the ios project -->
-        <pod id="TesseractOCRiOS" version="4.0.0" /> 
+        <pod name="TesseractOCRiOS" version="4.0.0" /> 
 
         <!-- native implementation of the plugin -->
         <header-file src="src/ios/LiveOcrPlugin.h" />
