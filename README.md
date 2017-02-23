@@ -65,7 +65,7 @@ this.platform.ready().then(() => {
 
 ### DEV-requirements: 
 * [Cocoapods](https://cocoapods.org) must be set up (master repository) 
-  * This plugin creates a workspace project for iOS and checks for cocoapods in config.xml and plugin.xml's and installs them
+  * TesseractOCRiOS cocoapod is added on plugin installation
 
 * Since iOS 10 it's mandatory to add a NSCameraUsageDescription and NSPhotoLibraryUsageDescription in the info.plist.
   * NSCameraUsageDescription describes the reason that the app accesses the user’s camera.
@@ -73,11 +73,11 @@ this.platform.ready().then(() => {
   * When the system prompts the user to allow access, this string is displayed as part of the dialog box.
   * This is done automatically when the plugin is installed
 
+* Optional when errors with bitcode occur while building:  
+  * Open workspace project in `platforms/ios`: 
+  * Project `Pods` -> Targets `TesseractOCRiOS` -> Build Settings -> Select `All` -> Search for `bitcode` -> Enable Bitcode `No`  
+
 ### How to modify and build:
-#### Optional when errors with bitcode occur:  
-* Open workspace project in `platforms/ios`: 
-* Project `Pods` -> Targets `TesseractOCRiOS` -> Build Settings -> Select `All` -> Search for `bitcode` -> Enable Bitcode `No`  
-  
 #### Modify and build:
 * Following files, located in `cordova-plugin-live-ocr/src/ios` can be modified (header and implementation):
   * `AROverlayViewController`
